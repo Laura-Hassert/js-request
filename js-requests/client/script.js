@@ -223,18 +223,19 @@ document.getElementById('query-button').addEventListener('click', queryTest);
 
 function createFood(event) {
     event.preventDefault();
-    console.log('its working!')
-    let foodInput = document.querySelector('#input-field')
+    let foodInput = document.querySelector('#input-field').value
     const body = {
         newFood: foodInput
     }
-    console.log(foodInput.textContent)
     axios.post('http://localhost:3000/food', body)
     .then(res => {
-        // let foodList = document.getElementById('input-field')
-        foodInput.textContent = res.data
-        // foodList.style.display = 'block';
         console.log(res.data)
+        for(let i = 0; i < res.data.length; i++)  {
+            let para = document.createElement('p')
+            para.textContent = res.data[i]
+            let bodyEl = document.querySelector('body')
+            bodyEl.appendChild(para)   
+            } 
     })
 }
 const theButton = document.querySelector('#add-food-button')
